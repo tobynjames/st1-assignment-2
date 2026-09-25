@@ -24,7 +24,7 @@ class Patient(Person):
 class Practitioner(Person):
         def __init__(self, practitioner_id, name, dob, email):
                 super().__init__(name,dob,email)
-                self.patient_id = practitioner_id
+                self.practitioner_id = practitioner_id
 
 #Data validation (Not implimented for email)
 def validate_name(name):
@@ -113,51 +113,70 @@ def add_appointment():
         print("Practitioner not found.")
         return
 
+    appointment = {
+        "patient": patient,
+        "practitioner": practitioner,
+        "time": appointment_time
+    }
+
+    appointments.append(appointment)
+
+    print("Appointment booked successfully.")
     # Run Book Appointment Function
-    add_appointment(patient, practitioner, appointment_time)
+    #book_appointment(patient, practitioner, appointment_time)
 
 #Grabs info from create_appointment's appointment dictornary and saves them to appointments array
-def book_appointment(patient_name, practitioner_name, appointment_time): 
-    if not patient_name: 
-         print("Patient name must not be empty")
-         return
-    if not validate_name(patient_name): 
-             print("Patient name must not have numbers")
-             return
-    if not practitioner_name: 
-             print("Practitioner name must not be empty")
-             return
-    if not validate_name(practitioner_name): 
-                print("Practitioner name must not have numbers")
-                return
-    if not appointment_time: 
-                    print("Time is required")
-                    return
-    if not appointment_time: 
-                        print("Time is required")
-                        return
-    if not validate_time(appointment_time): 
-                            print("Time has to be in 24 hour format")
-                            return
-    appointment = { 
-        "patient": patient_name, 
-        "practitioner": practitioner_name, 
-        "time": appointment_time 
-    } 
-    appointments.append(appointment) 
-    print("Appointment booked successfully.")
+# def book_appointment(patient_name, practitioner_name, appointment_time): 
+#     if not patient_name: 
+#          print("Patient name must not be empty")
+#          return
+#     if not validate_name(patient_name): 
+#              print("Patient name must not have numbers")
+#              return
+#     if not practitioner_name: 
+#              print("Practitioner name must not be empty")
+#              return
+#     if not validate_name(practitioner_name): 
+#                 print("Practitioner name must not have numbers")
+#                 return
+#     if not appointment_time: 
+#                     print("Time is required")
+#                     return
+#     if not appointment_time: 
+#                         print("Time is required")
+#                         return
+#     if not validate_time(appointment_time): 
+#                             print("Time has to be in 24 hour format")
+#                             return
+#     appointment = { 
+#         "patient": patient_name, 
+#         "practitioner": practitioner_name, 
+#         "time": appointment_time 
+#     } 
+#     appointments.append(appointment) 
+#     print("Appointment booked successfully.")
 
 
 
 #Lists all appointsments if there is any
-def display_appointments(): 
-    if not appointments: 
-         print("No appointments recorded.") 
-         return 
-    print ("====Appointments====")
-    for appointment in appointments: 
-            print(f"Patient: {appointment['patient']} | Practitioner: {appointment['practitioner']} | Time: {appointment['time']}") 
+def display_appointments():
 
+    if not appointments:
+        print("No appointments recorded.")
+        return
+
+    print("\n==== Appointments ====")
+
+    for appointment in appointments:
+
+        print(
+            f"Patient: {appointment['patient'].name} | "
+            f"Practitioner: {appointment['practitioner'].name} | "
+            f"Time: {appointment['time']}"
+        )
+
+
+# Main Menu
 while True:
 
     print("\n=== SmartCare ===")
